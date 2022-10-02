@@ -105,14 +105,7 @@
 						<goal>report</goal>
 					</goals>
 				</execution>
-				<!-- The parameters 'rules' for goal org.jacoco:jacoco-maven-plugin:0.8.7:check are missing or invalid
-				<execution> 
-					<id>jacoco-check</id>
-					<goals>
-						<goal>check</goal>
-					</goals>
-				</execution>
-				-->
+	
 			</executions>
       </plugin>
  	</plugins>
