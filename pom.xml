@@ -14,8 +14,36 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    
+    <!-- Selenium properties-->
+    <selenium.groupId>org.seleniumhq.selenium</selenium.groupId>
+    <selenium.artifactId>selenium-java</selenium.artifactId>
+    <selenium.version>2.53.1</selenium.version>
+    
+    <!-- Testing Selenium-->
+    <testng.groupId>org.testng</testng.groupId>
+    <testng.artifactId>testng</testng.artifactId>
+    <testng.version>6.9.10</testng.version>
+    
+    <!-- JaCoCo properties -->
+	<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+	<jacoco.groupId>org.jacoco</jacoco.groupId>
+	<jacoco.artifactId>jacoco-maven-plugin</jacoco.artifactId>
+	<jacoco.version>0.8.7</jacoco.version>
+	<sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
+	
+	<!-- SonarQube properties -->
+	<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+	<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+	<sonar.language>java</sonar.language>
+		
+	<!-- Junit jupiter properties -->
+	<junit-jupiter.groupId>org.junit.jupiter</junit-jupiter.groupId>
+	<junit-jupiter.artifactId>junit-jupiter</junit-jupiter.artifactId>
+	<junit-jupiter.version>5.7.0</junit-jupiter.version>
+	
   </properties>
 
   <dependencies>
@@ -25,9 +53,70 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- Selenium Dependency -->
+    <dependency>
+      <groupId>${selenium.groupId}</groupId>
+      <artifactId>${selenium.artifactId}</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>${testng.groupId}</groupId>
+      <artifactId>${testng.artifactId}</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- jUnit5 dependency -->
+    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter -->
+	<dependency>
+		<groupId>${junit-jupiter.groupId}</groupId>
+		<artifactId>${junit-jupiter.artifactId}</artifactId>
+		<version>${junit-jupiter.version}</version>
+		<scope>test</scope>
+	</dependency>
+		
+	<dependency>
+		<groupId>org.jacoco</groupId>
+		<artifactId>jacoco-maven-plugin</artifactId>
+		<version>0.8.6</version>
+	</dependency>
+	
   </dependencies>
 
   <build>
+  	<plugins>
+  		 <plugin>
+      		<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>${jacoco.version}</version>
+			<executions>
+				<execution> 
+					<id>prepare-agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+				</execution> 
+				<execution>
+					<id>jacoco-report</id>
+					<phase>test</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+				</execution>
+				<!-- The parameters 'rules' for goal org.jacoco:jacoco-maven-plugin:0.8.7:check are missing or invalid
+				<execution> 
+					<id>jacoco-check</id>
+					<goals>
+						<goal>check</goal>
+					</goals>
+				</execution>
+				-->
+			</executions>
+      </plugin>
+ 	</plugins>
+ 	
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
